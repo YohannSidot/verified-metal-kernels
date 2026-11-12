@@ -1,0 +1,131 @@
+diff --git a/tests/test-backend-ops.cpp b/tests/test-backend-ops.cpp
+index ddbbae9..75a98a9 100644
+--- a/tests/test-backend-ops.cpp
++++ b/tests/test-backend-ops.cpp
+@@ -1773,6 +1773,9 @@ struct test_case {
+         int64_t total_time_us = 0;
+         int64_t total_mem = 0;
+         int total_runs = 0;
++        std::vector<double> kmac_iter_us; // per-iteration time per op run (sample package patch)
++        const bool kmac = getenv("KMAC_PERF") != nullptr;
++        const size_t kmac_min_iter = getenv("KMAC_MIN_ITER") ? (size_t) atoi(getenv("KMAC_MIN_ITER")) : 30;
+         do {
+             int64_t start_time = ggml_time_us();
+             ggml_status status = ggml_backend_graph_compute(backend, gf);
+@@ -1785,13 +1788,19 @@ struct test_case {
+             total_time_us += end_time - start_time;
+             total_mem += mem;
+             total_runs += n_runs;
++            kmac_iter_us.push_back((double)(end_time - start_time) / n_runs);
+ 
+             // re-draw any data-dependent inputs (expert ids) outside the timed region
+             reinit_perf_iter(ctx.get());
+-        } while (total_time_us < 1000*1000); // run for at least 1 second
++        } while (total_time_us < 1000*1000 || (kmac && kmac_iter_us.size() < kmac_min_iter)); // run for at least 1 second
+ 
+         // Create test result
+         double avg_time_us      = (double) total_time_us / total_runs;
++        if (kmac) {
++            std::vector<double> t = kmac_iter_us; std::sort(t.begin(), t.end());
++            avg_time_us = t[t.size() / 2];
++            printf("KMAC n_iter=%zu n_runs_per_iter=%d median_us=%.3f min_us=%.3f max_us=%.3f\n", t.size(), n_runs, avg_time_us, t.front(), t.back());
++        }
+         double calculated_flops = (op_flops(out) > 0) ? (op_flops(out) * total_runs) / (total_time_us / 1e6) : 0.0;
+         double calculated_bandwidth =
+             (op_flops(out) == 0) ? total_mem / (total_time_us / 1e6) / 1024.0 / 1024.0 / 1024.0 : 0.0;
+@@ -13174,7 +13183,95 @@ static std::vector<std::unique_ptr<test_case>> make_test_cases_eval() {
+ #endif
+ 
+ // Test cases for performance evaluation: should be representative of real-world use cases
++// ---------------------------------------------------------------- sample package perf cases (KMAC_PERF=1)
++struct test_fa_kmac : public test_flash_attn_ext {
++    int mode; int64_t p_N, p_P, p_S, s_kd;
++    test_fa_kmac(int mode, int64_t hsk, int64_t hsv, int64_t nh, std::array<int64_t, 2> nr23, int64_t kv, int64_t nb,
++                 int64_t N = 0, int64_t P = 0, int64_t S = 0, int64_t kd = 0, bool v_is_view_of_k = false, int64_t n_kv_max = 0)
++        : test_flash_attn_ext(hsk, hsv, nh, nr23, kv, nb, true, false, 0.0f, 0.0f, GGML_PREC_F32, GGML_TYPE_F16, GGML_TYPE_F16,
++                              {0, 1, 2, 3}, true, v_is_view_of_k, n_kv_max), mode(mode), p_N(N), p_P(P), p_S(S), s_kd(kd) {}
++    std::string vars() override { return test_flash_attn_ext::vars() + ",kmac_mode=" + std::to_string(mode); }
++    void initialize_tensors(ggml_context * ctx) override {
++        for (ggml_tensor * t = ggml_get_first_tensor(ctx); t != NULL; t = ggml_get_next_tensor(ctx, t)) {
++            if (strcmp(t->name, "m") == 0 && mode != 3) {
++                const int64_t ne0 = t->ne[0], nrows = ggml_nrows(t), ne1 = t->ne[1];
++                std::vector<float> f(ne0 * nrows, 0.0f);
++                for (int64_t r = 0; r < nrows; ++r) {
++                    const int64_t i = r % ne1; // query row inside the stream
++                    for (int64_t c = 0; c < ne0; ++c) {
++                        bool vis = true;
++                        if (mode == 1) { vis = c < p_P || (c >= p_P + i * p_S && c < p_P + (i + 1) * p_S); }
++                        if (mode == 2) { const int64_t j = c - (ne0 - s_kd); vis = j < 0 || j <= i; }
++                        f[r * ne0 + c] = vis ? 0.0f : -INFINITY;
++                    }
++                }
++                std::vector<ggml_fp16_t> h(f.size());
++                ggml_fp32_to_fp16_row(f.data(), h.data(), h.size());
++                ggml_backend_tensor_set(t, h.data(), 0, h.size() * sizeof(ggml_fp16_t));
++            } else if (strcmp(t->name, "m") == 0) {
++                init_tensor_kq_mask_sparse(t, n_kv_max);
++            } else {
++                init_tensor_uniform(t);
++            }
++        }
++    }
++};
++
++static std::vector<std::unique_ptr<test_case>> make_test_cases_kmac() {
++    std::vector<std::unique_ptr<test_case>> tc;
++    const char * which = getenv("KMAC_PERF");
++    std::string w = which ? which : "all";
++    auto want = [&](const char * k) { return w == "all" || w.find(k) != std::string::npos; };
++    if (want("decode")) {  // Llama-3-8B: 32 q heads, 8 kv heads, D=128
++        for (auto bl : std::vector<std::array<int64_t, 2>>{{1, 8192}, {1, 32768}, {1, 65536}, {4, 16384}, {8, 8192}}) {
++            tc.emplace_back(new test_fa_kmac(0, 128, 128, 8, {4, bl[0]}, bl[1], 1));
++        }
++    }
++    if (want("prefix")) {  // N requests share a P-token prefix (unified cache), each with its own S-token suffix
++        for (auto nps : std::vector<std::array<int64_t, 3>>{{8, 8192, 512}, {16, 16384, 1024}, {32, 4096, 256}}) {
++            tc.emplace_back(new test_fa_kmac(1, 128, 128, 8, {4, 1}, nps[1] + nps[0] * nps[2], nps[0], nps[0], nps[1], nps[2]));
++        }
++    }
++    if (want("spec")) {  // speculative verification: kd draft tokens vs cache of L (drafts at the end, chain/tree mask)
++        for (auto blk : std::vector<std::array<int64_t, 3>>{{1, 8192, 8}, {1, 32768, 8}, {4, 16384, 4}, {1, 32768, 16}}) {
++            tc.emplace_back(new test_fa_kmac(2, 128, 128, 8, {4, blk[0]}, blk[1], blk[2], 0, 0, 0, blk[2]));
++        }
++    }
++    if (want("dsa")) {  // DeepSeek-V3.2 DSA decode: indexer (64 heads x 128) + top-2048 + sparse MLA (128 heads, 576/512)
++        for (auto bl : std::vector<std::array<int64_t, 2>>{{1, 8192}, {1, 32768}, {1, 65536}, {4, 16384}}) {
++            tc.emplace_back(new test_lightning_indexer(128, 64, bl[1], 1, bl[0], bl[0], GGML_TYPE_F16));
++            tc.emplace_back(new test_top_k(GGML_TYPE_F32, {bl[1], 1, 1, bl[0]}, 2048));
++            tc.emplace_back(new test_top_k_mask(GGML_TYPE_F16, bl[1], 0, bl[1], 2048, 0, false, 1, 1, bl[0], false, false));
++            tc.emplace_back(new test_fa_kmac(3, 576, 512, 1, {128, bl[0]}, bl[1], 1, 0, 0, 0, 0, true, 2048));
++        }
++    }
++    if (want("kda")) {  // Kimi Delta Attention recurrent step: H=32, S=128, per-channel gate (kda=true), f32 state
++        for (auto bt : std::vector<std::array<int64_t, 2>>{{1, 1}, {8, 1}, {32, 1}, {64, 1}, {8, 4}}) {
++            tc.emplace_back(new test_gated_delta_net(GGML_TYPE_F32, 32, 128, bt[1], bt[0], 1, false, true));
++        }
++    }
++    if (want("dory")) {  // NVIDIA Dory 1.0 4B attention step: 16 q heads, 4 kv heads, D=256; {B, L, T}
++        for (auto blt : std::vector<std::array<int64_t, 3>>{{1, 1024, 1}, {8, 1024, 1}, {32, 1024, 1}, {1, 1039, 16},
++                                                            {1, 8192, 1}, {1, 32768, 1}, {1, 32768, 8}}) {
++            if (blt[2] == 1) {
++                tc.emplace_back(new test_fa_kmac(0, 256, 256, 4, {4, blt[0]}, blt[1], 1));
++            } else {
++                tc.emplace_back(new test_fa_kmac(2, 256, 256, 4, {4, blt[0]}, blt[1], blt[2], 0, 0, 0, blt[2]));
++            }
++        }
++    }
++    if (const char * c = getenv("KMAC_CASE")) {  // keep only shape #c of the selected op (DSA: its 4 sub-ops)
++        const int i = atoi(c);
++        const int per = (w == "dsa") ? 4 : 1;
++        std::vector<std::unique_ptr<test_case>> one;
++        for (int j = i * per; j < (i + 1) * per && j < (int) tc.size(); ++j) one.emplace_back(std::move(tc[j]));
++        return one;
++    }
++    return tc;
++}
++
+ static std::vector<std::unique_ptr<test_case>> make_test_cases_perf() {
++    if (getenv("KMAC_PERF")) { return make_test_cases_kmac(); }
+     std::vector<std::unique_ptr<test_case>> test_cases;
+ 
+     for (float n : {128.0f, 4096.0f, 32768.0f, 1048576.0f}) {

@@ -1,0 +1,37 @@
+Kernel sample — Evaluation and Research License (DRAFT, NOT YET REVIEWED)
+
+Licensor: Yohann Sidot. The Software was written by AI models (Claude) under the direction of the Licensor. To the
+extent any copyright or other rights subsist in the Software, they are held by the Licensor and are reserved except
+as stated below. Independently of copyright, your access to and use of the Software are conditioned on your
+acceptance of these terms.
+
+1. Permission. You may download, read, run and modify the contents of this
+   package (the "Software") on your own machines, solely to evaluate it or for
+   non-commercial research, including publishing measurements or criticism of
+   it with attribution.
+
+2. No commercial use. You may not use the Software, or any work derived from
+   it, in a commercial product or service, for internal production workloads
+   of a for-profit organisation, or to provide services to third parties,
+   without the prior written agreement of the Licensor.
+
+3. Redistribution. You may not redistribute the Software, modified or not, without the prior written agreement of
+the Licensor; link to this repository instead.
+
+4. Third-party material. The file llama_cpp/test-backend-ops.patch is a patch
+   against llama.cpp (https://github.com/ggml-org/llama.cpp, MIT License); the
+   unchanged context lines it quotes remain under the llama.cpp license.
+   Libraries used at run time (MLX, PyTorch, NumPy, llama.cpp) are installed
+   separately and remain under their own licenses.
+
+5. Termination. These permissions end automatically if you breach this
+   license.
+
+6. No warranty. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   EXPRESS OR IMPLIED. IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY
+   CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM THE SOFTWARE OR ITS USE.
+
+For any use not covered above, ask the Licensor for written agreement.
+
+Viewing and forking this repository through GitHub's own features, as permitted by GitHub's Terms of Service, does
+not grant any right beyond those stated above.
