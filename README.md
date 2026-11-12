@@ -139,6 +139,21 @@ are the most useful feedback this package can get.
 The verifier accepting a kernel only means it found nothing wrong. Nothing in this package says anything about
 non-Apple hardware.
 
+## Commissioning a kernel
+
+I take paid commissions for kernels like these, for hardware that expert libraries serve poorly. Today that means
+Apple Silicon (M5); a ROCm port of the loop exists but has not run on an AMD GPU yet.
+
+- You name one operation, its shapes and dtype, and the code path you run today.
+- I first tell you, with numbers, whether there is anything to gain. If there is not, I say so.
+- If there is, within 5 business days you get the kernel source, a verification report (randomized tests, fuzzing of
+  shapes and values, numerical error against a float64 reference) and an A/B script to run on your own machine.
+- You pay only if, on your own measurement, the kernel is at least 1.2x faster than your current path (geometric mean
+  over the agreed shapes, none below 0.95x): EUR 1,500 per operation for the first three customers, with a perpetual,
+  non-exclusive licence to modify and ship it. Otherwise you owe nothing.
+
+To start, open an issue on this repository with the operation and the shapes.
+
 ## License
 
 Source-available for evaluation and non-commercial research only; see [LICENSE](LICENSE). Not open source.

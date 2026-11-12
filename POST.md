@@ -94,3 +94,7 @@ One defect found on the way: the kernels only read fp16. On bf16, the format mlx
 Ops that are slow or missing on hardware other than Nvidia, in a model you actually run: the op, the shapes, the model, and what you use today. A reproducible case is the most useful thing you can send. I can only measure on the M5 today, and would rather hear that an op is already fast than spend a run finding out. And if you see a class of wrong kernel the three layers above would let through, I want to know.
 
 The simplest way to reach me is an issue on the sample repository.
+
+## Commissioning a kernel
+
+I take paid commissions on these terms: you name an operation and its shapes, I tell you whether there is anything to gain, and you pay only if the delivered kernel beats your current path on your own machine. The terms are in the [README](README.md#commissioning-a-kernel).
