@@ -1,0 +1,346 @@
+{
+ "uniform_M1": {
+  "routing": "uniform",
+  "M": 1,
+  "parts": {
+   "gdn_in": {
+    "count": 30,
+    "kernl_us": 126.050525,
+    "r2_us": 130.5,
+    "r1_calls_us": 127.1833375
+   },
+   "o_proj": {
+    "count": 40,
+    "kernl_us": 44.884887500000005,
+    "r2_us": 56.3598875,
+    "r1_calls_us": 44.977599999999995
+   },
+   "attn_qkv": {
+    "count": 10,
+    "kernl_us": 92.360925,
+    "r2_us": 99.4177,
+    "r1_calls_us": 92.51146250000001
+   },
+   "moe": {
+    "count": 40,
+    "kernl_us": 141.8515625,
+    "r2_us": 155.7578125,
+    "r1_calls_us": 140.7864375
+   },
+   "lm_head": {
+    "count": 1,
+    "kernl_us": 2357.32825,
+    "r2_us": 2624.2292500000003,
+    "r1_calls_us": 2369.30725
+   }
+  },
+  "sum_r2_ms": 16.01811425,
+  "sum_kernl_ms": 14.531911249999999,
+  "sum_r1_calls_ms": 14.5404835,
+  "ratio_kernl_over_r2": 0.907217355501132,
+  "ratio_r1_calls_over_kernl": 1.0005898914363383,
+  "router_kernl_ms": 0.58325,
+  "router_r1_calls_ms": 0.580375
+ },
+ "uniform_M2": {
+  "routing": "uniform",
+  "M": 2,
+  "parts": {
+   "gdn_in": {
+    "count": 30,
+    "kernl_us": 121.18385,
+    "r2_us": 127.2630125,
+    "r1_calls_us": 234.77864999999997
+   },
+   "o_proj": {
+    "count": 40,
+    "kernl_us": 47.805724999999995,
+    "r2_us": 56.21145,
+    "r1_calls_us": 73.4859375
+   },
+   "attn_qkv": {
+    "count": 10,
+    "kernl_us": 105.43960000000001,
+    "r2_us": 109.72865,
+    "r1_calls_us": 175.290625
+   },
+   "moe": {
+    "count": 40,
+    "kernl_us": 279.1171875,
+    "r2_us": 296.6914375,
+    "r1_calls_us": 295.8085625
+   },
+   "lm_head": {
+    "count": 1,
+    "kernl_us": 2504.692625,
+    "r2_us": 2699.34375,
+    "r1_calls_us": 4533.442625
+   }
+  },
+  "sum_r2_ms": 21.730636125,
+  "sum_kernl_ms": 20.271520625,
+  "sum_r1_calls_ms": 28.101488375,
+  "ratio_kernl_over_r2": 0.9328544506655578,
+  "ratio_r1_calls_over_kernl": 1.3862545832079134,
+  "router_kernl_ms": 0.5921875,
+  "router_r1_calls_ms": 0.7209794999999999
+ },
+ "uniform_M4": {
+  "routing": "uniform",
+  "M": 4,
+  "parts": {
+   "gdn_in": {
+    "count": 30,
+    "kernl_us": 170.89895,
+    "r2_us": 128.0052,
+    "r1_calls_us": 423.0724
+   },
+   "o_proj": {
+    "count": 40,
+    "kernl_us": 70.23125,
+    "r2_us": 56.7734375,
+    "r1_calls_us": 132.56457500000002
+   },
+   "attn_qkv": {
+    "count": 10,
+    "kernl_us": 135.9958375,
+    "r2_us": 100.061475,
+    "r1_calls_us": 295.6151
+   },
+   "moe": {
+    "count": 40,
+    "kernl_us": 481.30859375,
+    "r2_us": 498.319,
+    "r1_calls_us": 533.39584375
+   },
+   "lm_head": {
+    "count": 1,
+    "kernl_us": 3787.0261250000003,
+    "r2_us": 2717.73425,
+    "r1_calls_us": 9104.198
+   }
+  },
+  "sum_r2_ms": 29.762202500000004,
+  "sum_kernl_ms": 32.33554675,
+  "sum_r1_calls_ms": 51.39093775000001,
+  "ratio_kernl_over_r2": 1.0864635018191278,
+  "ratio_r1_calls_over_kernl": 1.5893016483477278,
+  "router_kernl_ms": 0.7882085,
+  "router_r1_calls_ms": 0.8566665
+ },
+ "uniform_M8": {
+  "routing": "uniform",
+  "M": 8,
+  "parts": {
+   "gdn_in": {
+    "count": 30,
+    "kernl_us": 334.04741249999995,
+    "r2_us": 134.1046875,
+    "r1_calls_us": 907.6307374999999
+   },
+   "o_proj": {
+    "count": 40,
+    "kernl_us": 134.55259999999998,
+    "r2_us": 56.1974,
+    "r1_calls_us": 248.9859375
+   },
+   "attn_qkv": {
+    "count": 10,
+    "kernl_us": 260.5224,
+    "r2_us": 102.3838625,
+    "r1_calls_us": 561.6260374999999
+   },
+   "moe": {
+    "count": 40,
+    "kernl_us": 972.7682500000001,
+    "r2_us": 997.78515625,
+    "r1_calls_us": 1113.3736875
+   },
+   "lm_head": {
+    "count": 1,
+    "kernl_us": 7531.708375,
+    "r2_us": 2780.224,
+    "r1_calls_us": 18371.70825
+   }
+  },
+  "sum_r2_ms": 49.9865055,
+  "sum_kernl_ms": 64.45118875,
+  "sum_r1_calls_ms": 105.71127574999998,
+  "ratio_kernl_over_r2": 1.2893717635452633,
+  "ratio_r1_calls_over_kernl": 1.6401757329883226,
+  "router_kernl_ms": 0.9235415,
+  "router_r1_calls_ms": 1.4896039999999997
+ },
+ "overlap_M1": {
+  "routing": "overlap",
+  "M": 1,
+  "parts": {
+   "gdn_in": {
+    "count": 30,
+    "kernl_us": 126.050525,
+    "r2_us": 130.5,
+    "r1_calls_us": 127.1833375
+   },
+   "o_proj": {
+    "count": 40,
+    "kernl_us": 44.884887500000005,
+    "r2_us": 56.3598875,
+    "r1_calls_us": 44.977599999999995
+   },
+   "attn_qkv": {
+    "count": 10,
+    "kernl_us": 92.360925,
+    "r2_us": 99.4177,
+    "r1_calls_us": 92.51146250000001
+   },
+   "moe": {
+    "count": 40,
+    "kernl_us": 146.8645625,
+    "r2_us": 159.4245,
+    "r1_calls_us": 144.73178124999998
+   },
+   "lm_head": {
+    "count": 1,
+    "kernl_us": 2357.32825,
+    "r2_us": 2624.2292500000003,
+    "r1_calls_us": 2369.30725
+   }
+  },
+  "sum_r2_ms": 16.16478175,
+  "sum_kernl_ms": 14.73243125,
+  "sum_r1_calls_ms": 14.69829725,
+  "ratio_kernl_over_r2": 0.9113906687914298,
+  "ratio_r1_calls_over_kernl": 0.9976830708101896,
+  "router_kernl_ms": 0.58325,
+  "router_r1_calls_ms": 0.580375
+ },
+ "overlap_M2": {
+  "routing": "overlap",
+  "M": 2,
+  "parts": {
+   "gdn_in": {
+    "count": 30,
+    "kernl_us": 121.18385,
+    "r2_us": 127.2630125,
+    "r1_calls_us": 234.77864999999997
+   },
+   "o_proj": {
+    "count": 40,
+    "kernl_us": 47.805724999999995,
+    "r2_us": 56.21145,
+    "r1_calls_us": 73.4859375
+   },
+   "attn_qkv": {
+    "count": 10,
+    "kernl_us": 105.43960000000001,
+    "r2_us": 109.72865,
+    "r1_calls_us": 175.290625
+   },
+   "moe": {
+    "count": 40,
+    "kernl_us": 210.42837500000002,
+    "r2_us": 225.15759375,
+    "r1_calls_us": 255.71221875
+   },
+   "lm_head": {
+    "count": 1,
+    "kernl_us": 2504.692625,
+    "r2_us": 2699.34375,
+    "r1_calls_us": 4533.442625
+   }
+  },
+  "sum_r2_ms": 18.869282374999997,
+  "sum_kernl_ms": 17.523968125000003,
+  "sum_r1_calls_ms": 26.497634625,
+  "ratio_kernl_over_r2": 0.9287034756667584,
+  "ratio_r1_calls_over_kernl": 1.512079594986138,
+  "router_kernl_ms": 0.5921875,
+  "router_r1_calls_ms": 0.7209794999999999
+ },
+ "overlap_M4": {
+  "routing": "overlap",
+  "M": 4,
+  "parts": {
+   "gdn_in": {
+    "count": 30,
+    "kernl_us": 170.89895,
+    "r2_us": 128.0052,
+    "r1_calls_us": 423.0724
+   },
+   "o_proj": {
+    "count": 40,
+    "kernl_us": 70.23125,
+    "r2_us": 56.7734375,
+    "r1_calls_us": 132.56457500000002
+   },
+   "attn_qkv": {
+    "count": 10,
+    "kernl_us": 135.9958375,
+    "r2_us": 100.061475,
+    "r1_calls_us": 295.6151
+   },
+   "moe": {
+    "count": 40,
+    "kernl_us": 344.908875,
+    "r2_us": 352.46743749999996,
+    "r1_calls_us": 491.51953125
+   },
+   "lm_head": {
+    "count": 1,
+    "kernl_us": 3787.0261250000003,
+    "r2_us": 2717.73425,
+    "r1_calls_us": 9104.198
+   }
+  },
+  "sum_r2_ms": 23.92814,
+  "sum_kernl_ms": 26.879558,
+  "sum_r1_calls_ms": 49.71588525000001,
+  "ratio_kernl_over_r2": 1.1233450656841695,
+  "ratio_r1_calls_over_kernl": 1.849579715931341,
+  "router_kernl_ms": 0.7882085,
+  "router_r1_calls_ms": 0.8566665
+ },
+ "overlap_M8": {
+  "routing": "overlap",
+  "M": 8,
+  "parts": {
+   "gdn_in": {
+    "count": 30,
+    "kernl_us": 334.04741249999995,
+    "r2_us": 134.1046875,
+    "r1_calls_us": 907.6307374999999
+   },
+   "o_proj": {
+    "count": 40,
+    "kernl_us": 134.55259999999998,
+    "r2_us": 56.1974,
+    "r1_calls_us": 248.9859375
+   },
+   "attn_qkv": {
+    "count": 10,
+    "kernl_us": 260.5224,
+    "r2_us": 102.3838625,
+    "r1_calls_us": 561.6260374999999
+   },
+   "moe": {
+    "count": 40,
+    "kernl_us": 614.628875,
+    "r2_us": 605.10678125,
+    "r1_calls_us": 947.58853125
+   },
+   "lm_head": {
+    "count": 1,
+    "kernl_us": 7531.708375,
+    "r2_us": 2780.224,
+    "r1_calls_us": 18371.70825
+   }
+  },
+  "sum_r2_ms": 34.279370500000006,
+  "sum_kernl_ms": 50.12561375,
+  "sum_r1_calls_ms": 99.07986949999999,
+  "ratio_kernl_over_r2": 1.4622676268223767,
+  "ratio_r1_calls_over_kernl": 1.9766315479778038,
+  "router_kernl_ms": 0.9235415,
+  "router_r1_calls_ms": 1.4896039999999997
+ }
+}

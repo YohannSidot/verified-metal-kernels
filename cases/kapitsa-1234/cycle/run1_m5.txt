@@ -1,0 +1,64 @@
+Apple M5, macOS 26.6.2, MLX 0.32.4; Now drawing from 'AC Power' |  -InternalBattery-0 (id=22741091)	100%; charged; 0:00 remaining present: true
+check gdn_in: rows bitwise equal to R1 run on the row alone
+  kernl       all inputs 576/576 (elements differing 0); random inputs 288/288, max |diff| 0
+  r1_grid     all inputs 576/576 (elements differing 0); random inputs 288/288, max |diff| 0
+  r2          all inputs 139/576 (elements differing 5066656); random inputs 0/288, max |diff| 0.00492
+  max abs error vs float64: r1 5.01e-06, kernl 5.01e-06, r2 0.0048
+bench gdn_in (12352 x 2048, 4-bit): 30 rounds, chain 40 over 40 weight sets of 13.57 MiB; median us per product; ratio = median over rounds of (arm / kernl)
+  M=1 kernl    126.1  r1_grid    123.7  r1_calls    127.2  r2    130.5 | r1_grid/kernl 1.00  r1_calls/kernl 1.01  r2/kernl 1.03
+  M=2 kernl    121.2  r1_grid    121.0  r1_calls    234.8  r2    127.3 | r1_grid/kernl 1.00  r1_calls/kernl 1.88  r2/kernl 1.05
+  M=4 kernl    170.9  r1_grid    216.5  r1_calls    423.1  r2    128.0 | r1_grid/kernl 1.27  r1_calls/kernl 2.47  r2/kernl 0.75
+  M=8 kernl    334.0  r1_grid    434.4  r1_calls    907.6  r2    134.1 | r1_grid/kernl 1.30  r1_calls/kernl 2.71  r2/kernl 0.41
+check attn_qkv: rows bitwise equal to R1 run on the row alone
+  kernl       all inputs 576/576 (elements differing 0); random inputs 288/288, max |diff| 0
+  r1_grid     all inputs 576/576 (elements differing 0); random inputs 288/288, max |diff| 0
+  r2          all inputs 139/576 (elements differing 3782787); random inputs 0/288, max |diff| 0.00497
+  max abs error vs float64: r1 4.72e-06, kernl 4.72e-06, r2 0.00497
+bench attn_qkv (9216 x 2048, 4-bit): 30 rounds, chain 40 over 40 weight sets of 10.12 MiB; median us per product; ratio = median over rounds of (arm / kernl)
+  M=1 kernl     92.4  r1_grid     92.1  r1_calls     92.5  r2     99.4 | r1_grid/kernl 0.98  r1_calls/kernl 1.00  r2/kernl 1.07
+  M=2 kernl    105.4  r1_grid     94.0  r1_calls    175.3  r2    109.7 | r1_grid/kernl 0.98  r1_calls/kernl 1.70  r2/kernl 1.06
+  M=4 kernl    136.0  r1_grid    170.7  r1_calls    295.6  r2    100.1 | r1_grid/kernl 1.24  r1_calls/kernl 2.19  r2/kernl 0.74
+  M=8 kernl    260.5  r1_grid    336.5  r1_calls    561.6  r2    102.4 | r1_grid/kernl 1.29  r1_calls/kernl 2.16  r2/kernl 0.39
+check o_proj: rows bitwise equal to R1 run on the row alone
+  kernl       all inputs 576/576 (elements differing 0); random inputs 288/288, max |diff| 0
+  r2          all inputs 193/576 (elements differing 784261); random inputs 0/288, max |diff| 0.0101
+  max abs error vs float64: r1 8.4e-06, kernl 8.4e-06, r2 0.00878
+bench o_proj (2048 x 4096, 4-bit): 30 rounds, chain 40 over 40 weight sets of 4.50 MiB; median us per product; ratio = median over rounds of (arm / kernl)
+  M=1 kernl     44.9  r1_calls     45.0  r2     56.4 | r1_calls/kernl 1.00  r2/kernl 1.25
+  M=2 kernl     47.8  r1_calls     73.5  r2     56.2 | r1_calls/kernl 1.54  r2/kernl 1.18
+  M=4 kernl     70.2  r1_calls    132.6  r2     56.8 | r1_calls/kernl 1.90  r2/kernl 0.80
+  M=8 kernl    134.6  r1_calls    249.0  r2     56.2 | r1_calls/kernl 1.88  r2/kernl 0.42
+check router: rows bitwise equal to R1 run on the row alone
+  kernl       all inputs 576/576 (elements differing 0); random inputs 288/288, max |diff| 0
+  k_nt2       all inputs 576/576 (elements differing 0); random inputs 288/288, max |diff| 0
+  kernl_xn    all inputs 576/576 (elements differing 0); random inputs 288/288, max |diff| 0
+  max abs error vs float64: r1 3.85e-06, kernl 3.85e-06
+bench router (257 x 2048, 8-bit): 30 rounds, chain 40 over 40 weight sets of 0.53 MiB; median us per product; ratio = median over rounds of (arm / kernl)
+  M=1 kernl     14.6  k_nt2     19.6  r1_calls     14.5 | k_nt2/kernl 1.30  r1_calls/kernl 1.00
+  M=2 kernl     14.8  k_nt2     22.7  r1_calls     18.0 | k_nt2/kernl 1.53  r1_calls/kernl 1.21
+  M=4 kernl     19.7  k_nt2     22.6  r1_calls     21.4 | k_nt2/kernl 1.16  r1_calls/kernl 1.08
+  M=8 kernl     23.1  k_nt2     27.6  r1_calls     37.2 | k_nt2/kernl 1.21  r1_calls/kernl 1.60
+check moe: rows bitwise equal to R1 run on the row alone
+  kernl       all inputs 432/432 (elements differing 0); random inputs 288/288, max |diff| 0
+  r2          all inputs 123/432 (elements differing 632790); random inputs 0/288, max |diff| 0.0411
+  max abs error vs float64: r1 5.05e-05, kernl 5.05e-05, r2 0.0384
+bench moe (uniform routing): 30 rounds, chain 16 (fresh routing per product); median us per block; ratio = median over rounds of (arm / kernl)
+  M=1 (distinct experts 8.0, tiles 9.0) kernl    141.9  r1_calls    140.8  r2    155.8 | r1_calls/kernl 1.00  r2/kernl 1.10
+  M=2 (distinct experts 15.7, tiles 16.7) kernl    279.1  r1_calls    295.8  r2    296.7 | r1_calls/kernl 1.04  r2/kernl 1.06
+  M=4 (distinct experts 30.5, tiles 32.6) kernl    481.3  r1_calls    533.4  r2    498.3 | r1_calls/kernl 1.11  r2/kernl 1.04
+  M=8 (distinct experts 57.6, tiles 61.8) kernl    972.8  r1_calls   1113.4  r2    997.8 | r1_calls/kernl 1.18  r2/kernl 1.02
+bench moe (overlap routing): 30 rounds, chain 16 (fresh routing per product); median us per block; ratio = median over rounds of (arm / kernl)
+  M=1 (distinct experts 8.0, tiles 9.0) kernl    146.9  r1_calls    144.7  r2    159.4 | r1_calls/kernl 0.99  r2/kernl 1.09
+  M=2 (distinct experts 12.8, tiles 13.8) kernl    210.4  r1_calls    255.7  r2    225.2 | r1_calls/kernl 1.21  r2/kernl 1.07
+  M=4 (distinct experts 21.6, tiles 25.7) kernl    344.9  r1_calls    491.5  r2    352.5 | r1_calls/kernl 1.42  r2/kernl 1.03
+  M=8 (distinct experts 40.2, tiles 49.7) kernl    614.6  r1_calls    947.6  r2    605.1 | r1_calls/kernl 1.54  r2/kernl 0.98
+check lm_head: rows bitwise equal to R1 run on the row alone
+  kernl       all inputs 576/576 (elements differing 0); random inputs 288/288, max |diff| 0
+  r1_grid     all inputs 576/576 (elements differing 0); random inputs 288/288, max |diff| 0
+  r2          all inputs 139/576 (elements differing 101912917); random inputs 0/288, max |diff| 0.00541
+  max abs error vs float64: r1 5.38e-06, kernl 5.38e-06, r2 0.00496
+bench lm_head (248320 x 2048, 4-bit): 30 rounds, chain 4 over 3 weight sets of 272.81 MiB; median us per product; ratio = median over rounds of (arm / kernl)
+  M=1 kernl   2357.3  r1_grid   2370.5  r1_calls   2369.3  r2   2624.2 | r1_grid/kernl 1.01  r1_calls/kernl 1.00  r2/kernl 1.12
+  M=2 kernl   2504.7  r1_grid   2507.6  r1_calls   4533.4  r2   2699.3 | r1_grid/kernl 1.00  r1_calls/kernl 1.81  r2/kernl 1.08
+  M=4 kernl   3787.0  r1_grid   4937.1  r1_calls   9104.2  r2   2717.7 | r1_grid/kernl 1.30  r1_calls/kernl 2.40  r2/kernl 0.72
+  M=8 kernl   7531.7  r1_grid   9857.8  r1_calls  18371.7  r2   2780.2 | r1_grid/kernl 1.31  r1_calls/kernl 2.44  r2/kernl 0.37
