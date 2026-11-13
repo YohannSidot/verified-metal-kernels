@@ -4,6 +4,8 @@ Three GPU kernels for attention-style operations on Apple Silicon, the three-lay
 interleaved benchmark that measured them, and two deliberately wrong kernels the verifier rejects. Everything needed
 to re-check the per-op numbers below on your own M5.
 
+**In one page.** What this is, what the judge has measured, what weakens it and what you can ask for: [ONE-PAGER.md](ONE-PAGER.md).
+
 **Commissions.** I write kernels like these for a given engine and operation, paid on result: see [Commissioning a kernel](#commissioning-a-kernel).
 
 **Cases.** Measurements posted on public threads of other projects, with their limits and where our approach lost: see [`cases/`](cases/).
