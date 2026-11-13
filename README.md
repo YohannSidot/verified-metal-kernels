@@ -6,6 +6,8 @@ to re-check the per-op numbers below on your own M5.
 
 **Commissions.** I write kernels like these for a given engine and operation, paid on result: see [Commissioning a kernel](#commissioning-a-kernel).
 
+**Cases.** Measurements posted on public threads of other projects, with their limits and where our approach lost: see [`cases/`](cases/).
+
 | Op | Kernel | What it computes |
 |---|---|---|
 | `prefix` | `kernels/prefix_opus55_v8.py` | Shared prefix: N requests share one prefix and have their own suffix, one decode token each |
@@ -159,3 +161,4 @@ To start, open an issue on this repository with the operation and the shapes.
 ## License
 
 Source-available for evaluation and non-commercial research only; see [LICENSE](LICENSE). Not open source.
+Exception: [`cases/kapitsa-1234/`](cases/kapitsa-1234/) is under the Apache License 2.0 (its own `LICENSE-APACHE-2.0.txt`); its kernel sources are adapted from Kapitsa, an Apache-2.0 project.

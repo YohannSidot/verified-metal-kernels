@@ -1,0 +1,19 @@
+Apple M5, macOS 26.6.2, MLX 0.32.4; Now drawing from 'AC Power' |  -InternalBattery-0 (id=22741091)	83%; charging; 0:58 remaining present: true
+check: every row vs R1 run on that row alone, float32 bit patterns (rows equal / rows; elements differing)
+  kernl    rows bitwise equal to R1-alone: 576/576  (elements differing: 0)
+  r1_grid  rows bitwise equal to R1-alone: 576/576  (elements differing: 0)
+  r2       rows bitwise equal to R1-alone: 139/576  (elements differing: 5370066)
+drift R2 vs R1 (random inputs only), per projection: rows equal / rows, max |diff|, max |value|
+  qkv  rows equal 0/288, elements differing 2358987/2359296, max |diff| 0.00473, max |value| 26
+  z    rows equal 0/288, elements differing 1179479/1179648, max |diff| 0.00478, max |value| 23.8
+  b    rows equal 0/288, elements differing 9216/9216, max |diff| 0.00421, max |value| 15.6
+  a    rows equal 0/288, elements differing 9216/9216, max |diff| 0.00364, max |value| 16.4
+bench: 30 interleaved rounds, 16 weight sets of 13.6 MiB, chain 16; median us per product; ratio = median over rounds of (arm time / kernl time)
+  M=1  kernl   123.9  r1_calls   124.1  r1_grid   124.2  r2   131.7 | kernl speedup vs r1_calls 1.00x, vs r1_grid 1.00x, vs r2 1.06x
+  M=2  kernl   125.4  r1_calls   231.8  r1_grid   126.1  r2   131.8 | kernl speedup vs r1_calls 1.84x, vs r1_grid 1.00x, vs r2 1.05x
+  M=3  kernl   174.4  r1_calls   339.9  r1_grid   175.0  r2   135.8 | kernl speedup vs r1_calls 1.94x, vs r1_grid 1.00x, vs r2 0.77x
+  M=4  kernl   179.7  r1_calls   437.3  r1_grid   224.2  r2   133.8 | kernl speedup vs r1_calls 2.43x, vs r1_grid 1.25x, vs r2 0.74x
+  M=5  kernl   255.1  r1_calls   545.0  r1_grid   328.2  r2   136.5 | kernl speedup vs r1_calls 2.14x, vs r1_grid 1.29x, vs r2 0.54x
+  M=6  kernl   255.5  r1_calls   647.1  r1_grid   330.8  r2   135.8 | kernl speedup vs r1_calls 2.53x, vs r1_grid 1.30x, vs r2 0.53x
+  M=7  kernl   332.2  r1_calls   760.4  r1_grid   382.3  r2   136.5 | kernl speedup vs r1_calls 2.28x, vs r1_grid 1.14x, vs r2 0.41x
+  M=8  kernl   336.6  r1_calls   854.5  r1_grid   430.2  r2   137.2 | kernl speedup vs r1_calls 2.55x, vs r1_grid 1.28x, vs r2 0.41x

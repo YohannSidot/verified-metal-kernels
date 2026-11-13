@@ -1,0 +1,83 @@
+{
+ "ref_r1_rowloop": {
+  "verdict": "CORRECT",
+  "L1_pass": 5,
+  "L1_n": 5,
+  "L2_pass": 15,
+  "L2_n": 15,
+  "L3_pass": 4,
+  "L3_n": 4
+ },
+ "ref_r1_grid": {
+  "verdict": "CORRECT",
+  "L1_pass": 5,
+  "L1_n": 5,
+  "L2_pass": 15,
+  "L2_n": 15,
+  "L3_pass": 4,
+  "L3_n": 4
+ },
+ "ref_mlx_builtin": {
+  "verdict": "REJECTED",
+  "L1_pass": 5,
+  "L1_n": 5,
+  "L2_pass": 15,
+  "L2_n": 15,
+  "L3_pass": 4,
+  "L3_n": 4
+ },
+ "ref_r2_verify8": {
+  "verdict": "REJECTED",
+  "L1_pass": 5,
+  "L1_n": 5,
+  "L2_pass": 14,
+  "L2_n": 15,
+  "L3_pass": 0,
+  "L3_n": 4
+ },
+ "cheat_kt_nt4": {
+  "verdict": "REJECTED",
+  "L1_pass": 5,
+  "L1_n": 5,
+  "L2_pass": 15,
+  "L2_n": 15,
+  "L3_pass": 4,
+  "L3_n": 4
+ },
+ "cheat_first_row": {
+  "verdict": "REJECTED",
+  "L1_pass": 5,
+  "L1_n": 5,
+  "L2_pass": 15,
+  "L2_n": 15,
+  "L3_pass": 4,
+  "L3_n": 4
+ },
+ "cheat_bf16_out": {
+  "verdict": "REJECTED",
+  "L1_pass": 5,
+  "L1_n": 5,
+  "L2_pass": 15,
+  "L2_n": 15,
+  "L3_pass": 0,
+  "L3_n": 4
+ },
+ "cheat_no_norm_weight": {
+  "verdict": "REJECTED",
+  "L1_pass": 0,
+  "L1_n": 5,
+  "L2_pass": 0,
+  "L2_n": 15,
+  "L3_pass": 0,
+  "L3_n": 4
+ },
+ "cheat_nanmix": {
+  "verdict": "REJECTED",
+  "L1_pass": 5,
+  "L1_n": 5,
+  "L2_pass": 14,
+  "L2_n": 15,
+  "L3_pass": 4,
+  "L3_n": 4
+ }
+}

@@ -35,3 +35,6 @@ For any use not covered above, ask the Licensor for written agreement.
 
 Viewing and forking this repository through GitHub's own features, as permitted by GitHub's Terms of Service, does
 not grant any right beyond those stated above.
+
+Exception. The folder cases/kapitsa-1234/ is not part of the Software under this license: it is licensed under the
+Apache License 2.0, as stated in cases/kapitsa-1234/LICENSE-APACHE-2.0.txt.
