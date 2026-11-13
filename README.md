@@ -159,8 +159,13 @@ Apple Silicon (M5); a ROCm port of the loop exists but has not run on an AMD GPU
   check and its benchmark.
 - Correctness work (a row-exact or bit-exact variant of a kernel you already have, with the check that proves it) is
   quoted per operation before I start, and accepted when the check passes on your hardware.
+- An exactness map of an engine's speculative-decode verify path (which operations do not reproduce the plain decode
+  step, where in the code, and what exact forms would cost; example: [`cases/kapitsa-1234/cycle/`](cases/kapitsa-1234/cycle/)):
+  EUR 1,500 excl. VAT per path, delivered within 3 business days of your written order, invoiced only if you confirm
+  in writing that at least one finding was new to you.
 
-To start, open an issue on this repository with the operation and the shapes.
+To start, open an issue on this repository with the operation and the shapes; for an exactness map, name the engine
+and the commit, and the order and the map then go by e-mail.
 
 ## License
 
