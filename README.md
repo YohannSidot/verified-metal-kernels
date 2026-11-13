@@ -4,6 +4,8 @@ Three GPU kernels for attention-style operations on Apple Silicon, the three-lay
 interleaved benchmark that measured them, and two deliberately wrong kernels the verifier rejects. Everything needed
 to re-check the per-op numbers below on your own M5.
 
+**Commissions.** I write kernels like these for a given engine and operation, paid on result: see [Commissioning a kernel](#commissioning-a-kernel).
+
 | Op | Kernel | What it computes |
 |---|---|---|
 | `prefix` | `kernels/prefix_opus55_v8.py` | Shared prefix: N requests share one prefix and have their own suffix, one decode token each |
