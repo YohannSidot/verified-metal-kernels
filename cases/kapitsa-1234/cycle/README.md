@@ -1,6 +1,6 @@
 # Kapitsa #1234: one verify pass, op by op (text of the issue comment)
 
-The text below was posted on https://github.com/nace-ai/kapitsa/issues/1234 on 2026-11-13. Files in this folder: the script (`kernl_kapitsa_cycle.py`), the sum (`cycle_sum.py`) and the run records, under the Apache License 2.0.
+The text below was posted on https://github.com/nace-ai/kapitsa/issues/1234 on 2026-11-13. Files in this folder: the script (`kernl_kapitsa_cycle.py`), the sum (`cycle_sum.py`) and the run records, under the Apache License 2.0. This measurement was not commissioned or paid for; the Kapitsa project is not a customer and did not endorse it.
 
 ---
 
