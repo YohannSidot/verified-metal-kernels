@@ -155,6 +155,10 @@ Apple Silicon (M5); a ROCm port of the loop exists but has not run on an AMD GPU
 - You pay only if, on your own measurement, the kernel is at least 1.2x faster than your current path (geometric mean
   over the agreed shapes, none below 0.95x): EUR 1,500 per operation for the first three customers, with a perpetual,
   non-exclusive licence to modify and ship it. Otherwise you owe nothing.
+- If your project is open source, I deliver under your project's own licence, for example as a pull request with its
+  check and its benchmark.
+- Correctness work (a row-exact or bit-exact variant of a kernel you already have, with the check that proves it) is
+  quoted per operation before I start, and accepted when the check passes on your hardware.
 
 To start, open an issue on this repository with the operation and the shapes.
 
